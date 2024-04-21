@@ -1,7 +1,7 @@
 import { ClerkLoaded, ClerkLoading, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import { Loader } from 'lucide-react';
 import Image from 'next/image';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function Header() {
   return(
