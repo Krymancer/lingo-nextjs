@@ -5,6 +5,7 @@ import Card from "./card";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { upsertUserProgress } from "@/actions/user-progress";
+import { toast } from "sonner";
 
 type Props = {
   courses: typeof courses.$inferSelect[];
@@ -21,7 +22,7 @@ export default function List({ courses, activeCourseId }: Props) {
     if(id == activeCourseId) return router.push("/learn");
 
     startTranstion(() => {
-      upsertUserProgress(id);
+      upsertUserProgress(id).catch(() => toast.error("Something went wrong"));
     });
   };
 
@@ -34,7 +35,7 @@ export default function List({ courses, activeCourseId }: Props) {
           title={course.title} 
           imageSrc={course.imageSrc}
           onClick={onClick}
-          disabled={false}
+          disabled={pending}
           active={course.id === activeCourseId}
         />
       )}

@@ -19,15 +19,10 @@ export default async function Learn() {
   return (
     <div className="flex flex-row-reverse gap-12 px-6">
       <StickyWrapper>
-        <UserProgress activeCourse={{ title: "Portuguese", imageSrc: "br.svg" }} hearts={5} points={100} hasActiveSubscription={false} />
+        <UserProgress activeCourse={userProgress.activeCourse} hearts={userProgress.hearts} points={userProgress.points} hasActiveSubscription={false} />
       </StickyWrapper>
       <FeedWrapper>
-        <Header title="Portuguese" />
-        <div className="space-y-4">
-          <div className="h-[700px] bg-blue-500" />
-          <div className="h-[700px] bg-blue-500" />
-          <div className="h-[700px] bg-blue-500" />
-        </div>
+        <Header title={userProgress.activeCourse.title} />
       </FeedWrapper>
     </div>
   )
