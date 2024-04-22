@@ -10,7 +10,7 @@ export default function Footer() {
           Portuguese
         </Button>
         <Button size="lg" variant="ghost" className="w-full">
-          <Image src="/es.svg" alt="Spain"  height={32} width={40} className="mr-4 rounded-md"/>
+          <Image src="/es.svg" alt="Spanish"  height={32} width={40} className="mr-4 rounded-md"/>
           Spanish
         </Button>
         <Button size="lg" variant="ghost" className="w-full">
