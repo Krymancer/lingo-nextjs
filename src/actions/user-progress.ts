@@ -1,5 +1,6 @@
 "use server";
 
+import { POINTS_TO_REFILL } from "@/constants";
 import database from "@/database/drizzle";
 import { getCourseById, getUserProgress } from "@/database/queries";
 import { challengeProgress, challenges, userProgress } from "@/database/schema";
@@ -9,23 +10,23 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const upsertUserProgress = async (courseId: number) => {
-  const {userId} = await auth();
+  const { userId } = await auth();
   const user = await currentUser();
 
-  if(!userId || !user) throw new Error("Unathorized");
+  if (!userId || !user) throw new Error("Unathorized");
 
   const course = await getCourseById(courseId);
 
-  if(!course) throw new Error("Course not found");
+  if (!course) throw new Error("Course not found");
 
   // TODO: Enable once units and lessons are added
   // if(!course.units.lenght || !course.units[0].lessons.lenght) throw new Error("Course has no content");
 
   const existingUserProgress = await getUserProgress();
 
-  if(existingUserProgress) {
+  if (existingUserProgress) {
     await database.update(userProgress).set({
-      activeCourseId: courseId, 
+      activeCourseId: courseId,
       userName: user.firstName || "User",
       userImageSrc: user.imageUrl || "/mascot.svg"
     })
@@ -48,9 +49,9 @@ export const upsertUserProgress = async (courseId: number) => {
 };
 
 export const reduceHears = async (challengeId: number) => {
-  const {userId} = await auth();
+  const { userId } = await auth();
 
-  if(!userId) throw new Error("Unathorized");
+  if (!userId) throw new Error("Unathorized");
 
   const currentUserProgress = await getUserProgress();
   // TODO: get user subscription
@@ -59,7 +60,7 @@ export const reduceHears = async (challengeId: number) => {
     where: eq(challenges.id, challengeId)
   });
 
-  if(!challenge) throw new Error("Challenge not found");
+  if (!challenge) throw new Error("Challenge not found");
 
   const existingChallengeProgess = await database.query.challengeProgress.findFirst({
     where: and(
@@ -70,17 +71,17 @@ export const reduceHears = async (challengeId: number) => {
 
   const isPratice = !!existingChallengeProgess;
 
-  if(isPratice) {
+  if (isPratice) {
     return {
       error: "pratice"
     };
   }
 
-  if(!currentUserProgress) throw new Error("User progress not found");
+  if (!currentUserProgress) throw new Error("User progress not found");
 
   //TODO: Hadnle subscription
 
-  if(currentUserProgress.hearts <= 0) {
+  if (currentUserProgress.hearts <= 0) {
     return {
       error: "hearts"
     };
@@ -95,4 +96,24 @@ export const reduceHears = async (challengeId: number) => {
   revalidatePath("/quests");
   revalidatePath("/leaderboard");
   revalidatePath(`/lesson/${challenge.lessonId}`);
+}
+
+export const refillHearts = async () => {
+  const currentUserProgress = await getUserProgress();
+
+  if (!currentUserProgress) throw new Error("User progress not found");
+
+  if (currentUserProgress.hearts === 5) throw new Error("Hearts are full");
+
+  if (currentUserProgress.points <= POINTS_TO_REFILL) throw new Error("Not enough points");
+
+  await database.update(userProgress).set({
+    hearts: 5,
+    points: currentUserProgress.points - POINTS_TO_REFILL,
+  }).where(eq(userProgress.userId, currentUserProgress.userId));
+
+  revalidatePath("/shop");
+  revalidatePath("/learn");
+  revalidatePath("/quests");
+  revalidatePath("/leaderboard");
 }
