@@ -47,22 +47,22 @@ const main = async () => {
     ]);
 
     await database.insert(schema.challengeOptions).values([
-      { id: 1, challengeId: 1, text: "O homem", correct: true, imageSrc: "/man.svg", audioSrc: "br_man.mp3" },
-      { id: 2, challengeId: 1, text: "A mulher", correct: false, imageSrc: "/woman.svg", audioSrc: "br_woman.mp3" },
-      { id: 3, challengeId: 1, text: "O robô", correct: false, imageSrc: "/robot.svg", audioSrc: "br_robot.mp3" },
-      { id: 4, challengeId: 2, text: "O homem", correct: true, audioSrc: "br_man.mp3" },
-      { id: 5, challengeId: 2, text: "A mulher", correct: false, audioSrc: "br_woman.mp3" },
-      { id: 6, challengeId: 2, text: "O robô", correct: false, audioSrc: "br_robot.mp3" },
-      { id: 7, challengeId: 3, text: "O homem", correct: false, imageSrc: "/man.svg", audioSrc: "br_man.mp3" },
-      { id: 8, challengeId: 3, text: "A mulher", correct: false, imageSrc: "/woman.svg", audioSrc: "br_woman.mp3" },
-      { id: 9, challengeId: 3, text: "O robô", correct: true, imageSrc: "/robot.svg", audioSrc: "br_robot.mp3" },
-      { id: 10, challengeId: 4, text: "O homem", correct: false, audioSrc: "br_man.mp3" },
-      { id: 11, challengeId: 4, text: "A mulher", correct: true, audioSrc: "br_woman.mp3" },
-      { id: 12, challengeId: 4, text: "O robô", correct: false, audioSrc: "br_robot.mp3" },
+      { id: 1, challengeId: 1, text: "O homem", correct: true, imageSrc: "/man.svg", audioSrc: "/br_man.mp3" },
+      { id: 2, challengeId: 1, text: "A mulher", correct: false, imageSrc: "/woman.svg", audioSrc: "/br_woman.mp3" },
+      { id: 3, challengeId: 1, text: "O robô", correct: false, imageSrc: "/robot.svg", audioSrc: "/br_robot.mp3" },
+      { id: 4, challengeId: 2, text: "O homem", correct: true, audioSrc: "/br_man.mp3" },
+      { id: 5, challengeId: 2, text: "A mulher", correct: false, audioSrc: "/br_woman.mp3" },
+      { id: 6, challengeId: 2, text: "O robô", correct: false, audioSrc: "/br_robot.mp3" },
+      { id: 7, challengeId: 3, text: "O homem", correct: false, imageSrc: "/man.svg", audioSrc: "/br_man.mp3" },
+      { id: 8, challengeId: 3, text: "A mulher", correct: false, imageSrc: "/woman.svg", audioSrc: "/br_woman.mp3" },
+      { id: 9, challengeId: 3, text: "O robô", correct: true, imageSrc: "/robot.svg", audioSrc: "/br_robot.mp3" },
+      { id: 10, challengeId: 4, text: "O homem", correct: false, audioSrc: "/br_man.mp3" },
+      { id: 11, challengeId: 4, text: "A mulher", correct: true, audioSrc: "/br_woman.mp3" },
+      { id: 12, challengeId: 4, text: "O robô", correct: false, audioSrc: "/br_robot.mp3" },
 
-      { id: 13, challengeId: 5, text: "Andar", correct: false, audioSrc: "br_walk.mp3" },
-      { id: 14, challengeId: 5, text: "Comer", correct: true, audioSrc: "br_eat.mp3" },
-      { id: 15, challengeId: 5, text: "Correr", correct: false, audioSrc: "br_run.mp3" },
+      { id: 13, challengeId: 5, text: "Andar", correct: false, audioSrc: "/br_walk.mp3" },
+      { id: 14, challengeId: 5, text: "Comer", correct: true, audioSrc: "/br_eat.mp3" },
+      { id: 15, challengeId: 5, text: "Correr", correct: false, audioSrc: "/br_run.mp3" },
     ]);
 
     console.log("Seeding finish");
