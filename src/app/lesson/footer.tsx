@@ -7,7 +7,7 @@ type Props = {
   disabled?: boolean;
   status: "correct" | "wrong" | "none" | "completed";
   onCheck: () => void;
-  lessonId?: boolean;
+  lessonId?: number;
 };
 
 export default function Footer({ disabled, status, onCheck, lessonId }: Props) {
@@ -34,7 +34,7 @@ export default function Footer({ disabled, status, onCheck, lessonId }: Props) {
           </div>
         )}
         {status === "completed" && (
-          <Button 
+          <Button
             variant="default"
             size={isMobile ? "sm" : "lg"}
             onClick={() => window.location.href = `/lesson/${lessonId}`}

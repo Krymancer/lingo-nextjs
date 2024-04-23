@@ -43,6 +43,7 @@ const main = async () => {
       { id: 2, lessonId: 1, type: "ASSIST", question: "\"The man\"", order: 2 },
       { id: 3, lessonId: 1, type: "SELECT", question: "Which one of these is \"The robot\"", order: 3 },
       { id: 4, lessonId: 1, type: "ASSIST", question: "\"The woman\"", order: 4 },
+      { id: 5, lessonId: 2, type: "ASSIST", question: "\"Eat\"", order: 4 },
     ]);
 
     await database.insert(schema.challengeOptions).values([
@@ -58,6 +59,10 @@ const main = async () => {
       { id: 10, challengeId: 4, text: "O homem", correct: false, audioSrc: "br_man.mp3" },
       { id: 11, challengeId: 4, text: "A mulher", correct: true, audioSrc: "br_woman.mp3" },
       { id: 12, challengeId: 4, text: "O robô", correct: false, audioSrc: "br_robot.mp3" },
+
+      { id: 13, challengeId: 5, text: "Andar", correct: false, audioSrc: "br_walk.mp3" },
+      { id: 14, challengeId: 5, text: "Comer", correct: true, audioSrc: "br_eat.mp3" },
+      { id: 15, challengeId: 5, text: "Correr", correct: false, audioSrc: "br_run.mp3" },
     ]);
 
     console.log("Seeding finish");
