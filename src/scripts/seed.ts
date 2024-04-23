@@ -20,7 +20,7 @@ const main = async () => {
     await database.delete(schema.challengeProgress);
 
     await database.insert(schema.courses).values([
-      { id: 1, title: "Portuguse", imageSrc: "/br.svg" },
+      { id: 1, title: "Portuguese", imageSrc: "/br.svg" },
       { id: 2, title: "Spanish", imageSrc: "/es.svg" },
       { id: 3, title: "English", imageSrc: "/us.svg" },
       { id: 4, title: "German", imageSrc: "/de.svg" },
