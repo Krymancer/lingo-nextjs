@@ -18,6 +18,7 @@ import QuestionBubble from "./question-bubble";
 import Challenge from "./challenge";
 import Footer from "./footer";
 import ResultCard from "./result-card";
+import { useHeartsModal } from "@/store/use-hearts-modal";
 
 type Props = {
   initialLessonId: number
@@ -28,6 +29,8 @@ type Props = {
 };
 
 export default function Quiz({ initialLessonId, initialLessonChallenges, initinalHearts, initialPercentage, userSubscription }: Props) {
+
+  const { open: openHeartsModal } = useHeartsModal();
 
   const { width, height } = useWindowSize();
   const router = useRouter();
@@ -85,7 +88,7 @@ export default function Quiz({ initialLessonId, initialLessonChallenges, initina
       startTranstion(() => {
         upsertChallengeProgress(challenge.id).then((response) => {
           if (response?.error === "hearts") {
-            console.error("Missing hearts");
+            openHeartsModal();
             return;
           }
 
@@ -103,7 +106,7 @@ export default function Quiz({ initialLessonId, initialLessonChallenges, initina
         reduceHears(challenge.id)
           .then(response => {
             if (response?.error === "hearts") {
-              console.error("Missing hearts");
+              openHeartsModal();
               return;
             }
 
