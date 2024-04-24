@@ -253,7 +253,7 @@ const main = async () => {
                 {
                   challengeId: challenge.id,
                   correct: true,
-                  text: "el robot",
+                  text: "O robô",
                   imageSrc: "/robot.svg",
                   audioSrc: "/br_robot.mp3",
                 },
