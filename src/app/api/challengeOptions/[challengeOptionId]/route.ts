@@ -30,7 +30,7 @@ export async function PUT(request: Request, { params }: { params: { challengeOpt
   return NextResponse.json(data[0]);
 }
 
-export async function DELTE(request: Request, { params }: { params: { challengeOptionsId: number } }) {
+export async function DELETE(request: Request, { params }: { params: { challengeOptionsId: number } }) {
   const isAdmin = await getIsAdmin();
 
   if (!isAdmin) return new NextResponse("Forbidden", { status: 403 });
