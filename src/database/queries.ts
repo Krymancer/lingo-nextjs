@@ -3,7 +3,8 @@ import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 
 import database from '@/database/drizzle';
-import { challengeProgress, courses, lessons, units, userProgress } from "@/database/schema";
+import { challengeProgress, courses, lessons, units, userProgress, userSubscription } from "@/database/schema";
+import { DAY_IN_MS } from "@/constants";
 
 export const getCourses = cache(async () => {
   const data = await database.query.courses.findMany();
@@ -60,7 +61,7 @@ export const getUnits = cache(async () => {
 
   const normalizedData = data.map(unit => {
     const lessonsWithCompletedStatus = unit.lessons.map(lesson => {
-      if(lesson.challenges.length === 0) return {...lesson, completed: false}
+      if (lesson.challenges.length === 0) return { ...lesson, completed: false }
       const allCompleteChallenges = lesson.challenges.every(challenge => {
         return challenge.challengeProgress
           && challenge.challengeProgress.length > 0
@@ -105,10 +106,10 @@ export const getCourseProgress = cache(async () => {
   // TODO: If something goes wrong, check the last clause
   const fristUncompletedLesson = unitsInActiveCourse
     .flatMap(unit => unit.lessons)
-    .find(lesson => 
+    .find(lesson =>
       lesson.challenges
-        .some(challenge => 
-          !challenge.challengeProgress 
+        .some(challenge =>
+          !challenge.challengeProgress
           || challenge.challengeProgress.length === 0
           || challenge.challengeProgress.some(progress => progress.completed === false)
         )
@@ -124,7 +125,7 @@ export const getCourseProgress = cache(async () => {
 export const getLesson = cache(async (id?: number) => {
   const { userId } = await auth();
 
-  if(!userId) return;
+  if (!userId) return;
 
   const courseProgress = await getCourseProgress();
 
@@ -147,32 +148,51 @@ export const getLesson = cache(async (id?: number) => {
     },
   });
 
-  if(!data || !data.challenges) return;
+  if (!data || !data.challenges) return;
 
   // TODO: If something goes wrong, check the last clause
   const normalizedChallenges = data.challenges.map(challenge => {
-    const completed = challenge.challengeProgress 
-    && challenge.challengeProgress.length > 0
-    && challenge.challengeProgress.every(progress => progress.completed);
+    const completed = challenge.challengeProgress
+      && challenge.challengeProgress.length > 0
+      && challenge.challengeProgress.every(progress => progress.completed);
 
     return { ...challenge, completed };
   });
 
-  return {...data, challenges: normalizedChallenges};
+  return { ...data, challenges: normalizedChallenges };
 });
 
 export const getLessonPercentage = cache(async () => {
   const courseProgress = await getCourseProgress();
 
-  if(!courseProgress?.activeLessonId) return 0;
+  if (!courseProgress?.activeLessonId) return 0;
 
   const lesson = await getLesson(courseProgress.activeLessonId);
 
-  if(!lesson) return 0;
+  if (!lesson) return 0;
 
   const completedChallenges = lesson.challenges.filter(challenge => challenge.completed);
 
   const percentage = Math.round(completedChallenges.length / lesson.challenges.length * 100);
 
   return percentage;
+});
+
+export const getUserSubscription = cache(async () => {
+  const { userId } = await auth();
+
+  if (!userId) return;
+
+  const data = await database.query.userSubscription.findFirst({
+    where: eq(userSubscription.userId, userId),
+  });
+
+  if (!data) return;
+
+  const isActive = data.stripePriceId && data.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+
+  return {
+    ...data,
+    isActive: !!isActive
+  };
 });
