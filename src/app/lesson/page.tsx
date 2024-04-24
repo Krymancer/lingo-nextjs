@@ -1,17 +1,20 @@
-import { getLesson, getUserProgress } from "@/database/queries";
+import { getLesson, getUserProgress, getUserSubscription } from "@/database/queries";
 import { redirect } from "next/navigation";
 import Quiz from "./quiz";
 
 export default async function Lesson() {
   const lessonData = getLesson();
   const userProgressData = getUserProgress();
+  const userSubscriptionData = getUserSubscription();
 
   const [
     lesson,
-    userProgress
+    userProgress,
+    userSubscription
   ] = await Promise.all([
     lessonData,
-    userProgressData
+    userProgressData,
+    userSubscriptionData
   ]);
 
   if (!lesson || !userProgress) redirect("/learn");
@@ -24,7 +27,7 @@ export default async function Lesson() {
       initialLessonChallenges={lesson.challenges}
       initinalHearts={userProgress.hearts}
       initialPercentage={initialPercentage}
-      userSubscription={null} // TODO: Add user subscription
+      userSubscription={userSubscription}
     />
   );
 }

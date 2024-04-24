@@ -10,8 +10,8 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
-import { reduceHears } from "@/actions/user-progress";
-import { challengeOptions, challenges } from "@/database/schema";
+import { reduceHearts } from "@/actions/user-progress";
+import { challengeOptions, challenges, userSubscription } from "@/database/schema";
 
 import Header from "./header";
 import QuestionBubble from "./question-bubble";
@@ -26,7 +26,7 @@ type Props = {
   initialLessonChallenges: (typeof challenges.$inferSelect & { completed: boolean; challengeOptions: typeof challengeOptions.$inferSelect[]; })[];
   initinalHearts: number
   initialPercentage: number
-  userSubscription: any
+  userSubscription?: typeof userSubscription.$inferSelect & { isActive: boolean; }
 };
 
 export default function Quiz({ initialLessonId, initialLessonChallenges, initinalHearts, initialPercentage, userSubscription }: Props) {
@@ -113,7 +113,7 @@ export default function Quiz({ initialLessonId, initialLessonChallenges, initina
       });
     } else {
       startTranstion(() => {
-        reduceHears(challenge.id)
+        reduceHearts(challenge.id)
           .then(response => {
             if (response?.error === "hearts") {
               openHeartsModal();
