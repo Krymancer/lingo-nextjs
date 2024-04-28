@@ -1,7 +1,14 @@
 import { relations } from "drizzle-orm";
-import { boolean, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTableCreator, serial, text, timestamp } from "drizzle-orm/pg-core";
 
-export const courses = pgTable("courses", {
+/*
+  This is an example of how to use the multi - project schema feature of Drizzle ORM.
+  Use the samedatabase instance for mul tiple projects
+  @see https://orm.drizzle.team/docs/goodies#multi-project-schema 
+*/
+const createTable = pgTableCreator((name) => `lingo_${name}`)
+
+export const courses = createTable("courses", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   imageSrc: text("image_src").notNull(),
@@ -12,7 +19,7 @@ export const coursesRelations = relations(courses, ({ many }) => ({
   units: many(units),
 }));
 
-export const units = pgTable("units", {
+export const units = createTable("units", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
@@ -28,7 +35,7 @@ export const unitsReleations = relations(units, ({ many, one }) => ({
   lessons: many(lessons)
 }));
 
-export const lessons = pgTable("lessons", {
+export const lessons = createTable("lessons", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   unitId: integer("unit_id").references(() => units.id, { onDelete: "cascade" }).notNull(),
@@ -45,7 +52,7 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 
 export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST"]);
 
-export const challenges = pgTable("challenges", {
+export const challenges = createTable("challenges", {
   id: serial("id").primaryKey(),
   lessonId: integer("lesson_id").references(() => lessons.id, { onDelete: "cascade" }).notNull(),
   type: challengesEnum("type").notNull(),
@@ -62,7 +69,7 @@ export const challengesRelations = relations(challenges, ({ one, many }) => ({
   challengeProgress: many(challengeProgress),
 }));
 
-export const challengeOptions = pgTable("challenge_options", {
+export const challengeOptions = createTable("challenge_options", {
   id: serial("id").primaryKey(),
   challengeId: integer("challenge_id").references(() => challenges.id, { onDelete: "cascade" }).notNull(),
   text: text("text").notNull(),
@@ -78,7 +85,7 @@ export const challengeOptionsRelations = relations(challengeOptions, ({ one }) =
   }),
 }));
 
-export const challengeProgress = pgTable("challenge_progress", {
+export const challengeProgress = createTable("challenge_progress", {
   id: serial("id").primaryKey(),
   userId: text("user_id").notNull(),
   challengeId: integer("challenge_id").references(() => challenges.id, { onDelete: "cascade" }).notNull(),
@@ -93,7 +100,7 @@ export const challengeProgressRelations = relations(challengeProgress, ({ one })
 }));
 
 
-export const userProgress = pgTable("user_progress", {
+export const userProgress = createTable("user_progress", {
   userId: text("user_id").primaryKey(),
   userName: text("user_name").notNull().default("User"),
   userImageSrc: text("user_image_src").notNull().default("/mascot.svg"),
@@ -109,7 +116,7 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
   })
 }));
 
-export const userSubscription = pgTable("user_subscription", {
+export const userSubscription = createTable("user_subscription", {
   id: serial("id").primaryKey(),
   userId: text("user_id").notNull().unique(),
   stripeCustomerId: text("stripe_customer_id").notNull().unique(),
