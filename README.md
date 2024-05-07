@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lingo: a duolingo clone
 
-## Getting Started
+[Click here to see live site](https://kanban-task-management-eight-beta.vercel.app/)
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is a simple clone of duolingo, a language learning app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Users can sign up, log in, and start learning a language. They can choose from a list of languages and start learning.
+There are lessons with sound and images to help users learn the language.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Screenshots
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Landing Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/home.png?raw=true)
 
-## Learn More
+![Learn Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
 
-To learn more about Next.js, take a look at the following resources:
+![Lesson Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Lesson Page Correct](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Leaderboard Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
 
-## Deploy on Vercel
+## My process
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Built with
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- NextJS
+- Shadcn-ui
+- @clerk
+- drizzle
+- neon
+- Zustand
