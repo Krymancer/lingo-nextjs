@@ -1,6 +1,6 @@
 # Lingo: a duolingo clone
 
-[Click here to see live site](https://kanban-task-management-eight-beta.vercel.app/)
+[Click here to see live site](https://lingo-three-ashen.vercel.app/)
 
 ## Overview
 
