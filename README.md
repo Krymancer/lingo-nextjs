@@ -11,15 +11,15 @@ There are lessons with sound and images to help users learn the language.
 
 ## Screenshots
 
-![Landing Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/home.png?raw=true)
+![Landing Page](https://github.com/Krymancer/lingo-nextjs/blob/main/.github/screenshots/landing-page.png?raw=true)
 
-![Learn Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
+![Learn Page](https://github.com/Krymancer/lingo-nextjs/blob/main/.github/screenshots/learn-page.png?raw=true)
 
-![Lesson Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
+![Lesson Page](https://github.com/Krymancer/lingo-nextjs/blob/main/.github/screenshots/lesson-page.png?raw=true)
 
-![Lesson Page Correct](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
+![Lesson Page Correct](https://github.com/Krymancer/lingo-nextjs/blob/main/.github/screenshots/lesson-correct.png?raw=true)
 
-![Leaderboard Page](https://github.com/Krymancer/kanban-task-management/blob/main/.github/screenshots/task-overview.png?raw=true)
+![Leaderboard Page](https://github.com/Krymancer/lingo-nextjs/blob/main/.github/screenshots/leaderboard-page.png?raw=true)
 
 ## My process
 
